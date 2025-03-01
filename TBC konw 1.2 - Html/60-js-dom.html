@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM, scroll, położenie i rozmiary bloków</title>
+    <style>
+      main {
+        background: #f0f0f0;
+        padding: 20px;
+        margin: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <input type="text" />
+    <div class="buttons">
+      <button id="ok">Ok</button>
+      <button id="cancel">Anuluj</button>
+    </div>
+    <main>
+      <p>
+        1. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio,
+        recusandae.
+      </p>
+      <p>
+        2. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio,
+        recusandae.
+      </p>
+      <p>
+        3. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio,
+        recusandae.
+      </p>
+    </main>
+    <script type="text/javascript">
+      // pobieranie elemementu ze struktury DOM
+      const cancelButton = window.document.getElementById('cancel')
+      const mainContainer = document.querySelector('main') // selektory jak w css: .ok, button, [name="email"] itd
+      const okButton = document.querySelector('#ok') // selektory jak w css: .ok, button itd
+
+      // pobieranie listy elementów
+      const paragraphs = document.querySelectorAll('main p')
+
+      // nowy element
+      const newInputButton = document.createElement('button')
+
+      // kopia
+      const okClone = okButton.cloneNode(true)
+      okClone.textContent = 'Klon'
+
+      // zmiana właściwości elementu
+      newInputButton.textContent = 'Nowy przycisk'
+
+      // zmiana struktury DOM
+      // dzieciaki
+      mainContainer.appendChild(newInputButton)
+      // mainContainer.appendChild(cancelButton)
+
+      // jeśli element istnieje w DOM -> zostanie przeniesiony
+      // mainContainer.appendChild(okButton)
+
+      // wstawianie przed/za elementem
+      mainContainer.insertBefore(okClone, paragraphs[1])
+
+      // usuwanie
+      // mainContainer.removeChild(okClone) // .replaceChild()
+
+      // zamiana zawartości elementu
+      // mainContainer.innerHTML = '<h1>Rzeźbie html-a z js-a</h1>'
+      mainContainer.textContent = '<h1>Rzeźbie html-a z js-a</h1>'
+      // // mainContainer.textContent = 'nudno tutaj...' // jeśli zależy Ci tylko na pobraniu widocznej zawartości: .innerText
+
+      mainContainer.innerHTML = `
+      <div>
+        Pojemnik
+        <h1>Nowy nagłówek</h1>
+        <img src="" />
+      `
+      const pojemnik = document.createElement('div')
+      pojemnik.textContent = 'Pojemnik'
+      const header = document.createElement('h1')
+      const img = document.createElement('img')
+
+      pojemnik.appendChild(header)
+      pojemnik.appendChild(img)
+      mainContainer.appendChild(pojemnik)
+
+      // style css
+      mainContainer.style.background = 'lightpink'
+      mainContainer.style.marginTop = '10px'
+
+      // klasy css
+      mainContainer.className = 'red big header' // do czyszczenia/nadpisywania
+      mainContainer.classList.add('red')
+      mainContainer.classList.remove('header')
+      mainContainer.classList.toggle('header')
+      console.log(mainContainer.classList.contains('header'))
+
+      // pobieranie obliczonych css-ow
+      // const mainContainerCSS = window.getComputedStyle(mainContainer) // zwraca live obiekt cssowy (zmiana css, powoduje zmianę obiektu)
+      // console.log(mainContainerCSS)
+
+      // rozmiary elementu
+      // element.outerWidth /.outerHeight - z paskami, toolbarem etc
+      // .innerWidth/.innerHeight - sam viewport
+
+      // scrollWidth/scrollHeight - całość elementu (również niewidoczna część)
+      // offsetWidth/offsetHeight - widoczna część elementu (z paddingiem i borderem)
+      // clientWidth/clientHeight - widoczna eczęść elementu (bez bordera)
+    </script>
+  </body>
+</html>
